@@ -3,266 +3,123 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Casa Colima — Demo (versión comprobada)</title>
+  <title>Casa Colima — Comunidad Terapéutica</title>
 
-  <!-- ESTILOS EMBEBIDOS: evita problemas de rutas -->
-  <style>
-    :root{
-      --white:#ffffff;
-      --blue-1:#eaf6ff;
-      --blue-2:#d7efff;
-      --blue-3:#2b8fd6;
-      --blue-4:#0057b8;
-      --text:#003046;
-      --container:1200px;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter, system-ui, Arial, sans-serif;background:var(--white);color:var(--text);-webkit-font-smoothing:antialiased}
-    .container{max-width:var(--container);margin:0 auto;padding:24px}
-    /* HEADER */
-    .site-header{background:linear-gradient(90deg,var(--blue-4),var(--blue-3));padding:14px 0;color:white}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:0 12px}
-    .logo-large{height:110px;object-fit:contain;border-radius:8px;box-shadow:0 6px 18px rgba(3,21,40,0.12)}
-    .btn-chat{background:transparent;border:2px solid rgba(255,255,255,0.18);color:white;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
-    /* HERO */
-    .hero{position:relative;height:420px;display:flex;align-items:center}
-    .hero-bg{
-      position:absolute;inset:0;
-      background-image: linear-gradient(180deg, rgba(0,86,136,0.45), rgba(0,86,136,0.45)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420"><rect width="100%" height="100%" fill="%23cfeeff"/><text x="50%" y="50%" font-size="36" font-family="Arial" text-anchor="middle" fill="%23003466">Imagen de bienestar (placeholder)</text></svg>');
-      background-size:cover;background-position:center;filter:contrast(1);
-    }
-    .hero-content{position:relative;padding:40px 6%;color:var(--white);max-width:900px}
-    .hero-title{font-size:48px;line-height:1.05;margin:0 0 12px;font-weight:800;text-shadow:0 6px 18px rgba(0,0,0,0.22)}
-    .hero-sub{font-size:20px;margin:0 0 14px;opacity:0.95}
-    .hero-cta{display:inline-block;background:rgba(255,255,255,0.12);padding:8px 14px;border-radius:8px;font-weight:700}
-    /* SERVICES */
-    .services{padding:56px 24px}
-    .services h2{text-align:center;color:var(--blue-4);font-size:28px;margin-bottom:22px}
-    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-    .service-item{background:var(--white);border-radius:10px;border:1px solid #e8f6ff;padding:12px;text-align:center;box-shadow:0 6px 18px rgba(3,21,40,0.04)}
-    .service-media img{width:100%;height:160px;object-fit:cover;border-radius:8px}
-    .service-item h3{color:var(--blue-3);margin-top:12px;font-size:18px}
-    /* GALLERY */
-    .gallery{padding:40px 24px}
-    .gallery-slider{display:flex;align-items:center;gap:12px;position:relative}
-    .slides-window{overflow:hidden;width:100%}
-    .slides-track{display:flex;transition:transform .45s ease}
-    .slide{min-width:100%;flex-shrink:0;padding:6px}
-    .slide img{width:100%;height:320px;object-fit:cover;border-radius:10px;box-shadow:0 8px 24px rgba(2,20,40,0.08)}
-    .slide-arrow{background:var(--white);border:1px solid #eef7ff;padding:10px;border-radius:8px;cursor:pointer;box-shadow:0 6px 16px rgba(2,20,40,0.06)}
-    .gallery-dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
-    .gallery-dots button{width:10px;height:10px;border-radius:50%;border:none;background:#e0e6ea}
-    .gallery-dots button.active{background:var(--blue-4)}
-    /* CONTACT */
-    .contact{padding:40px 24px}
-    .contact h2{text-align:center;margin-bottom:18px;color:var(--blue-4)}
-    .contact-form{max-width:820px;margin:0 auto;background:var(--white);padding:18px;border-radius:10px;border:1px solid #eef7ff;box-shadow:0 10px 30px rgba(2,20,40,0.04)}
-    .contact-form .row{display:flex;gap:12px;margin-bottom:12px}
-    .contact-form input,.contact-form select,.contact-form textarea{flex:1;padding:12px;border-radius:8px;border:1px solid #e6f3fb}
-    .btn-primary{background:var(--blue-4);color:white;padding:12px 16px;border:none;border-radius:10px;cursor:pointer;font-weight:700}
-    /* INFO GRID */
-    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:40px 24px}
-    .info-card{background:var(--white);border:2px solid rgba(0,87,184,0.08);padding:18px;border-radius:10px;color:var(--blue-4);text-align:left}
-    .info-card .icon{font-size:26px;margin-bottom:8px}
-    .info-card a{color:var(--blue-4);text-decoration:none;font-weight:600}
-    /* FOOTER */
-    .site-footer{background:#f4fbff;padding:20px 0;text-align:center;color:var(--blue-4);border-top:1px solid #eef8ff}
-    @media(max-width:900px){
-      .header-inner{padding:0 12px}
-      .logo-large{height:86px}
-      .hero-title{font-size:32px}
-      .slide img{height:220px}
-      .contact-form .row{flex-direction:column}
-    }
-
-    /* layout small helper */
-    .container-flex{display:flex;align-items:center;gap:12px}
-  </style>
+  <!-- ENLACE AL CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- HEADER (logo grande arriba izquierda) -->
+  <!-- HEADER -->
   <header class="site-header">
-    <div class="container header-inner">
-      <div class="container-flex">
-        <!-- Si tienes logo real, reemplaza el SVG por <img src="assets/logo.png"> -->
-        <img class="logo-large" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='110'><rect rx='10' width='100%' height='100%' fill='%23ffffff' /><text x='20' y='65' font-size='28' font-family='Arial' fill='%23005b8b'>Casa Colima</text><text x='20' y='90' font-size='12' fill='%23005b8b'>Comunidad Terapéutica</text></svg>" alt="Logo Casa Colima">
-      </div>
-
-      <div class="header-actions">
-        <button id="open-chat-btn" class="btn-chat">💬 Habla con Emanuel — tu guía</button>
-      </div>
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Logo Casa Colima" class="logo-large" />
+    </div>
+    <div class="header-actions">
+      <button id="open-chat-btn" class="btn-chat">💬 Habla con Emanuel — tu guía</button>
     </div>
   </header>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="hero-content container">
-      <h1 class="hero-title">Bienvenidos a Casa Colima</h1>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>Bienvenidos a Casa Colima</h1>
       <p class="hero-sub">Ofrecemos Planes Integrales de Tratamiento de manera personalizada para lograr resultados reales en tu vida</p>
       <p class="hero-cta">Atención inmediata</p>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="servicios" class="services container">
+  <!-- SERVICIOS -->
+  <section class="services">
     <h2>Nuestros Servicios</h2>
     <div class="services-grid">
       <div class="service-item">
-        <div class="service-media"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='160'><rect width='100%' height='100%' fill='%23f0f8ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23005b8b'>Terapia grupal (imagen)</text></svg>" alt=""></div>
+        <img src="terapia-grupal.jpg" alt="Terapia grupal">
         <h3>Terapia grupal</h3>
       </div>
       <div class="service-item">
-        <div class="service-media"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='160'><rect width='100%' height='100%' fill='%23f0f8ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23005b8b'>Terapia individual (imagen)</text></svg>" alt=""></div>
+        <img src="terapia-individual.jpg" alt="Terapia individual">
         <h3>Terapia individual</h3>
       </div>
       <div class="service-item">
-        <div class="service-media"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='160'><rect width='100%' height='100%' fill='%23f0f8ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23005b8b'>Diagnóstico Integral (imagen)</text></svg>" alt=""></div>
+        <img src="diagnostico-integral.jpg" alt="Diagnóstico integral">
         <h3>Diagnóstico Integral</h3>
       </div>
       <div class="service-item">
-        <div class="service-media"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='160'><rect width='100%' height='100%' fill='%23f0f8ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23005b8b'>Programa de Recaída (imagen)</text></svg>" alt=""></div>
+        <img src="programa-recaida.jpg" alt="Programa de Recaída">
         <h3>Programa de Recaída</h3>
       </div>
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <section id="instalaciones" class="gallery container">
+  <!-- INSTALACIONES / GALERÍA -->
+  <section class="gallery">
     <h2>Nuestras Instalaciones</h2>
-    <div class="gallery-slider">
-      <button class="slide-arrow prev" data-dir="prev" aria-label="Anterior">❮</button>
-      <div class="slides-window">
-        <div class="slides-track">
-          <div class="slide"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='320'><rect width='100%' height='100%' fill='%23eef9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23005b8b'>Instalación 1</text></svg>" alt=""></div>
-          <div class="slide"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='320'><rect width='100%' height='100%' fill='%23eef9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23005b8b'>Instalación 2</text></svg>" alt=""></div>
-          <div class="slide"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='320'><rect width='100%' height='100%' fill='%23eef9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23005b8b'>Instalación 3</text></svg>" alt=""></div>
-          <div class="slide"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='320'><rect width='100%' height='100%' fill='%23eef9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23005b8b'>Instalación 4</text></svg>" alt=""></div>
-        </div>
+    <div class="slides-window">
+      <div class="slides-track">
+        <div class="slide"><img src="instalacion1.jpg" alt="Instalación 1"></div>
+        <div class="slide"><img src="instalacion2.jpg" alt="Instalación 2"></div>
+        <div class="slide"><img src="instalacion3.jpg" alt="Instalación 3"></div>
+        <div class="slide"><img src="instalacion4.jpg" alt="Instalación 4"></div>
       </div>
-      <button class="slide-arrow next" data-dir="next" aria-label="Siguiente">❯</button>
     </div>
-    <div class="gallery-dots" id="gallery-dots"></div>
+    <div class="gallery-dots"></div>
+    <button class="slide-arrow prev">❮</button>
+    <button class="slide-arrow next">❯</button>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contacto" class="contact container">
+  <!-- FORMULARIO DE CONTACTO -->
+  <section class="contact">
     <h2>Registro / Contacto</h2>
-    <form id="contact-form" class="contact-form">
-      <div class="row">
-        <input type="text" id="name" name="name" placeholder="Nombre completo" required />
-        <input type="tel" id="phone" name="phone" placeholder="Teléfono" required />
-      </div>
-      <div class="row">
-        <input type="email" id="email" name="email" placeholder="Correo (opcional)" />
-      </div>
-      <div class="row">
-        <select id="service" name="service" required>
-          <option value="">¿Qué servicio te interesa?</option>
-          <option value="terapia_grupal">Terapia grupal</option>
-          <option value="terapia_individual">Terapia individual</option>
-          <option value="diagnostico_integral">Diagnóstico Integral</option>
-          <option value="programa_recaida">Programa de Recaída</option>
-        </select>
-      </div>
-      <div class="row">
-        <textarea id="message" name="message" rows="3" placeholder="Cuéntanos brevemente... (opcional)"></textarea>
-      </div>
-      <div class="row">
-        <button type="submit" class="btn-primary">Enviar registro</button>
-      </div>
+    <form id="contact-form">
+      <input type="text" id="name" placeholder="Nombre completo" required />
+      <input type="tel" id="phone" placeholder="Teléfono" required />
+      <input type="email" id="email" placeholder="Correo (opcional)" />
+      <select id="service" required>
+        <option value="">¿Qué servicio te interesa?</option>
+        <option value="terapia_grupal">Terapia grupal</option>
+        <option value="terapia_individual">Terapia individual</option>
+        <option value="diagnostico_integral">Diagnóstico Integral</option>
+        <option value="programa_recaida">Programa de Recaída</option>
+      </select>
+      <textarea id="message" rows="3" placeholder="Cuéntanos brevemente... (opcional)"></textarea>
+      <button type="submit" class="btn-primary">Enviar registro</button>
     </form>
   </section>
 
-  <!-- INFO GRID -->
-  <section class="info-grid container" aria-label="Información de contacto">
+  <!-- INFO / CONTACTO -->
+  <section class="info-grid">
     <div class="info-card">
       <div class="icon">📍</div>
       <h4>Ubicación</h4>
-      <p>Callejón Colima No.11 Col. Villa Coyoacán C.P. 04000 Alcaldía Coyoacán CDMX</p>
-      <p><a href="https://www.google.com/maps/search/?api=1&query=Callejón+Colima+11+Villa+Coyoacán+CDMX" target="_blank" rel="noopener">Ver en Google Maps</a></p>
+      <p>Callejón Colima No.11 Col. Villa Coyoacán C.P. 04000 CDMX</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=Callejón+Colima+11+Villa+Coyoacán+CDMX" target="_blank">Ver en Google Maps</a>
     </div>
     <div class="info-card">
       <div class="icon">📞</div>
       <h4>Contacto</h4>
       <p>55 4849 2174</p>
-      <p><a href="tel:+525548492174">Llamar / WhatsApp</a></p>
+      <a href="tel:+525548492174">Llamar / WhatsApp</a>
     </div>
     <div class="info-card">
       <div class="icon">✉️</div>
       <h4>Correo</h4>
       <p>ctcasacolima@gmail.com</p>
-      <p><a href="mailto:ctcasacolima@gmail.com">Enviar correo</a></p>
+      <a href="mailto:ctcasacolima@gmail.com">Enviar correo</a>
     </div>
     <div class="info-card">
       <div class="icon">👍</div>
       <h4>Únete</h4>
       <p>Síguenos en redes</p>
-      <p class="socials">
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a> •
-        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a> •
-        <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
-      </p>
+      <p><a href="#">Facebook</a> • <a href="#">Instagram</a> • <a href="#">TikTok</a></p>
     </div>
   </section>
 
-  <footer class="site-footer">
-    <div class="container">© Casa Colima — Todos los derechos reservados</div>
+  <footer>
+    © Casa Colima — Todos los derechos reservados
   </footer>
 
-  <!-- SCRIPTS EMBEBIDOS: galería, chat popup, form -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // GALERÍA
-      const track = document.querySelector('.slides-track');
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const prevBtn = document.querySelector('.slide-arrow.prev');
-      const nextBtn = document.querySelector('.slide-arrow.next');
-      const dotsContainer = document.getElementById('gallery-dots');
-      if (track) {
-        let current = 0;
-        function renderDots() {
-          dotsContainer.innerHTML = '';
-          slides.forEach((s, i) => {
-            const b = document.createElement('button');
-            if (i === 0) b.classList.add('active');
-            b.addEventListener('click', () => goTo(i));
-            dotsContainer.appendChild(b);
-          });
-        }
-        function update() {
-          track.style.transform = `translateX(-${current * 100}%)`;
-          const dots = Array.from(dotsContainer.children);
-          dots.forEach(d => d.classList.remove('active'));
-          if (dots[current]) dots[current].classList.add('active');
-        }
-        function goTo(i) {
-          current = (i + slides.length) % slides.length;
-          update();
-        }
-        prevBtn.addEventListener('click', () => goTo(current - 1));
-        nextBtn.addEventListener('click', () => goTo(current + 1));
-        renderDots(); update();
-      }
-
-      // CHAT POPUP
-      const openChatBtn = document.getElementById('open-chat-btn');
-      openChatBtn && openChatBtn.addEventListener('click', () => {
-        const w = 420, h = 700;
-        const left = (screen.width / 2) - (w / 2);
-        const top = (screen.height / 2) - (h / 2);
-        window.open('chatbot.html', 'EmanuelChat', `width=${w},height=${h},top=${top},left=${left},resizable=yes`);
-      });
-
-      // CONTACT FORM (demo)
-      const form = document.getElementById('contact-form');
-      form && form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        alert('Registro enviado. Gracias — demo.');
-        form.reset();
-      });
-    });
-  </script>
+  <!-- ENLACE AL JS -->
+  <script src="script.js"></script>
 </body>
 </html>
