@@ -1,4 +1,116 @@
 <!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Casa Colima — Comunidad Terapéutica</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+<div class="container header-inner">
+<div class="logo-wrap">
+<img src="assets/logo-casa-colima.png" alt="Logo Casa Colima" class="logo-large">
+</div>
+<nav class="header-right">
+<button id="open-chat-btn" class="btn-chat">💬 Habla con Emanuel — tu guía</button>
+</nav>
+</div>
+</header>
+  
+<main>
+ <section class="hero">
+  <div class="hero-overlay">
+   <h1 class="hero-title">Bienvenidos a Casa Colima</h1>
+   <h2 class="hero-sub">Ofrecemos Planes Integrales de Tratamiento de manera personalizada para lograr resultados reales en tu vida</h2>
+   <p class="hero-cta">Atención inmediata</p>
+  </div>
+</section>
+ 
+<section class="services container" id="servicios">
+ h3>Nuestros Servicios</h3>
+ <div class="services-grid">
+  <div class="service-item">
+   <div class="service-media"><img src="assets/terapia-grupal.jpg" alt="Terapia grupal"></div>
+   <h4>Terapia grupal</h4>
+  </div>
+  <div class="service-item">
+   <div class="service-media"><img src="assets/terapia-individual.jpg" alt="Terapia individual"></div>
+   <h4>Terapia individual</h4>
+  </div>
+  <div class="service-item">
+   <div class="service-media"><img src="assets/diagnostico-integral.jpg" alt="Diagnóstico integral"></div>
+   <h4>Diagnóstico Integral</h4>
+  </div>
+  <div class="service-item">
+   <div class="service-media"><img src="assets/programa-recaida.jpg" alt="Programa de Recaída"></div>
+   <h4>Programa de Recaída</h4>
+  </div>
+ </div>
+</section>
+  
+<section class="gallery container" id="instalaciones">
+<h3>Nuestras Instalaciones</h3>
+<div class="gallery-slider" id="gallery-slider">
+<button class="slide-arrow prev" data-dir="prev">❮</button>
+<div class="slides-wrapper">
+<div class="slide"><img src="assets/instalacion1.jpg" alt="Instalación 1"></div>
+<div class="slide"><img src="assets/instalacion2.jpg" alt="Instalación 2"></div>
+<div class="slide"><img src="assets/instalacion3.jpg" alt="Instalación 3"></div>
+<div class="slide"><img src="assets/instalacion4.jpg" alt="Instalación 4"></div>
+</div>
+<button class="slide-arrow next" data-dir="next">❯</button>
+</div>
+<div class="dots" id="gallery-dots"></div>
+</section>
+
+<section class="contact container" id="contacto">
+<h3>Registro / Contacto</h3>
+<form id="contact-form">
+<div class="form-row">
+<input type="text" id="name" name="name" placeholder="Nombre completo" required>
+<input type="tel" id="phone" name="phone" placeholder="Teléfono" required>
+</div>
+<div class="form-row">
+<input type="email" id="email" name="email" placeholder="Correo (opcional)">
+</div>
+<div class="form-row">
+<select id="reason" name="reason" required>
+<option value="">¿Por qué buscas ayuda?</option>
+<option value="adiccion">Adicción</option>
+<option value="salud_mental">Trastorno emocional / salud mental</option>
+<option value="informacion">Información / Otros</option>
+</select>
+</div>
+<div class="form-row">
+<textarea id="message" name="message" rows="3" placeholder="Cuéntanos brevemente... (opcional)"></textarea>
+</div>
+<div class="form-row">
+<button type="submit" class="btn-primary">Enviar registro</button>
+</div>
+</form>
+</section>
+
+<section class="info-grid container">
+<div class="info-card">
+<div class="icon">📍</div>
+<h4>Ubicación</h4>
+<p>Callejón Colima No.11 Col. Villa Coyoacán C.P. 04000 Alcaldía Coyoacán CDMX</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Callejón+Colima+11+Villa+Coyoacán+CDMX" target="_blank">Ver en Google Maps</a></p>
+</div>
+<div class="info-card">
+<div class="icon">📞</div>
+<h4>Contacto</h4>
+<p>55 4849 2174</p>
+<p><a href="tel:+525548492174">Llamar / WhatsApp</a></p>
+</div>
+<div class="info-card">
+<div class="icon">✉️</div>
+<h4>Correo</h4>
+<p>ctcasacolima@gmail.com</p>
+<p><a href="mailto:ctcasacolima@gmail.com">Enviar correo</a></p>
+</div>
+<div class="info-card">
 <div class="icon">👍</div>
 <h4>Únete</h4>
 <p>Síguenos en redes</p>
@@ -10,8 +122,6 @@
 
 
 </main>
-
-
 <footer class="site-footer">
 <div class="container">© Casa Colima — Todos los derechos reservados</div>
 </footer>
