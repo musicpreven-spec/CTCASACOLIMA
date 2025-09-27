@@ -1,0 +1,47 @@
+body{margin:0;font-family:Arial,sans-serif;background:#f9fbff;color:#003046}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px;background:linear-gradient(90deg,#0057b8,#2b8fd6);color:white}
+.logo-large{height:100px}
+.btn-chat{background:transparent;border:2px solid rgba(255,255,255,0.3);color:white;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+
+/* HERO */
+.hero{position:relative;height:400px;display:flex;align-items:center;justify-content:center;text-align:center;color:white}
+.hero-bg{position:absolute;inset:0;background:url('hero.jpg') center/cover no-repeat;filter:brightness(0.65)}
+.hero h1{font-size:44px;margin:0}
+.hero-sub{font-size:20px;margin-top:12px}
+.hero-cta{margin-top:14px;background:rgba(255,255,255,0.15);padding:6px 12px;border-radius:8px;font-weight:700}
+
+/* SERVICIOS */
+.services{padding:40px 20px;text-align:center}
+.services h2{color:#0057b8;margin-bottom:20px;font-size:28px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.service-item{border:1px solid #e8f6ff;border-radius:8px;padding:10px;background:white;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
+.service-item img{width:100%;height:140px;object-fit:cover;border-radius:6px}
+.service-item h3{color:#2b8fd6;margin-top:8px}
+
+/* GALERÍA */
+.gallery{padding:30px 20px;text-align:center}
+.slides-window{overflow:hidden;position:relative;width:100%;height:300px;margin-bottom:12px}
+.slides-track{display:flex;transition:transform .4s ease}
+.slide{min-width:100%;flex-shrink:0}
+.slide img{width:100%;height:300px;object-fit:cover;border-radius:8px}
+.slide-arrow{padding:6px 10px;margin:0 5px;border:none;background:#2b8fd6;color:white;font-size:20px;border-radius:6px;cursor:pointer}
+.gallery-dots{display:flex;justify-content:center;gap:6px}
+.gallery-dots button{width:10px;height:10px;border-radius:50%;border:none;background:#e0e6ea}
+.gallery-dots button.active{background:#0057b8}
+
+/* CONTACTO */
+.contact{padding:30px 20px;text-align:center}
+.contact h2{color:#0057b8;margin-bottom:16px}
+.contact input,.contact select,.contact textarea{width:100%;padding:10px;margin-bottom:12px;border-radius:6px;border:1px solid #cce6ff}
+.btn-primary{background:#0057b8;color:white;padding:10px 16px;border:none;border-radius:6px;cursor:pointer}
+
+/* INFO GRID */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding:20px}
+.info-card{border:2px solid #2b8fd6;border-radius:6px;padding:10px;text-align:left;color:#0057b8}
+.info-card a{color:#0057b8;text-decoration:none;font-weight:600}
+
+/* FOOTER */
+footer{text-align:center;padding:14px;background:#eaf6ff;color:#2b8fd6;margin-top:20px}
+
+/* Responsive */
+@media(max-width:768px){.services-grid,.info-grid{grid-template-columns:1fr}}
