@@ -1,17 +1,45 @@
-/* script.js — versión robusta
- - Previsualización de imágenes (servicios)
- - Slider testimonios (robusto con resize)
- - Slider instalaciones (robusto)
- - Manejo básico del formulario (local)
+/* script.js — Corrección:
+   - Inputs ocultos: habilitar click en .service-img-wrap para abrir el file picker
+   - Slider testimonios robusto (muestra correctamente los 3 testimonios)
+   - Slider instalaciones robusto
+   - Mantener validación del formulario
 */
 
-/* 1) Previsualización: servicios */
-document.querySelectorAll('.img-uploader').forEach(upl => {
-  upl.addEventListener('change', function(ev) {
+/* 1) Hacer que la caja de imagen sea el trigger del input file (inputs están ocultos por CSS) */
+document.querySelectorAll('.service-card').forEach(card => {
+  const imgWrap = card.querySelector('.service-img-wrap');
+  const input = card.querySelector('.img-uploader');
+
+  if (!imgWrap || !input) return;
+
+  // Al hacer click en la caja de imagen, abrir file picker
+  imgWrap.addEventListener('click', () => input.click());
+
+  // También soportar arrastrar y soltar imagen (drop)
+  imgWrap.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    imgWrap.style.opacity = '0.95';
+  });
+  imgWrap.addEventListener('dragleave', () => {
+    imgWrap.style.opacity = '1';
+  });
+  imgWrap.addEventListener('drop', (e) => {
+    e.preventDefault();
+    imgWrap.style.opacity = '1';
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file) {
+      input.files = e.dataTransfer.files;
+      // disparar change manualmente
+      const ev = new Event('change');
+      input.dispatchEvent(ev);
+    }
+  });
+
+  // Cuando se selecciona archivo, previsualizar
+  input.addEventListener('change', function(ev) {
     const file = ev.target.files[0];
-    const targetId = ev.target.dataset.target;
     if (!file) return;
-    const imgEl = document.getElementById(targetId);
+    const imgEl = card.querySelector('.service-img');
     const reader = new FileReader();
     reader.onload = (e) => {
       imgEl.src = e.target.result;
@@ -20,90 +48,31 @@ document.querySelectorAll('.img-uploader').forEach(upl => {
   });
 });
 
-/* 2) Testimonios slider (robusto) */
+/* 2) Testimonios slider robusto: ahora se asegura mostrar todos los slides */
 (function(){
-  const sliderContainer = document.getElementById('testimonials-slider'); // contenedor con slides
-  if (!sliderContainer) return;
-
-  const slides = Array.from(sliderContainer.querySelectorAll('.testimonial-slide'));
+  const slider = document.getElementById('testimonials-slider');
   const prevBtn = document.getElementById('prevTest');
   const nextBtn = document.getElementById('nextTest');
   const dotsWrap = document.getElementById('dots');
 
-  // envolver slider en viewport para overflow hidden (si no existe)
-  let viewport = sliderContainer.parentElement;
-  if (!viewport.classList.contains('testimonials-viewport')) {
-    // asumo que en el HTML original el contenedor inmediato es el wrapper; si no, este paso no rompe nada
-    // (en el CSS añadimos .testimonials-viewport - asegúrate de que el index.html tenga la estructura o simplemente funciona igualmente)
-  }
+  if (!slider || !dotsWrap) return;
 
+  const slides = Array.from(slider.querySelectorAll('.testimonial-slide'));
   let active = 0;
 
-  // asegurar estilos de flex en slides
-  sliderContainer.style.display = 'flex';
-  sliderContainer.style.transition = 'transform 0.45s ease';
-  slides.forEach(s => {
-    s.style.flex = '0 0 100%';
-    s.style.boxSizing = 'border-box';
-  });
-
-  // crear dots
-  dotsWrap.innerHTML = '';
-  slides.forEach((_, i) => {
-    const b = document.createElement('button');
-    b.className = 'dot' + (i === 0 ? ' active' : '');
-    b.setAttribute('aria-label', 'Ir al testimonio ' + (i + 1));
-    b.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(b);
-  });
-
-  function update() {
-    // mover slider
-    sliderContainer.style.transform = `translateX(-${active * 100}%)`;
-    // dots
-    Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('active', idx === active));
-  }
-
-  function goTo(i) {
-    active = Math.max(0, Math.min(slides.length - 1, i));
-    update();
-  }
-
-  if (prevBtn) prevBtn.addEventListener('click', () => goTo(active - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => goTo(active + 1));
-
-  // responsive: en resize aseguramos que la transformación sigue siendo correcta
-  window.addEventListener('resize', () => {
-    // mantenemos la misma proporción, solo reaplicamos transform
-    update();
-  });
-
-  // init
-  update();
-})();
-
-/* 3) Galería instalaciones (robusto) */
-(function(){
-  const slider = document.getElementById('gallery-slider');
-  if (!slider) return;
-  const slides = Array.from(slider.querySelectorAll('.gallery-slide'));
-  const prevBtn = document.getElementById('prevGal');
-  const nextBtn = document.getElementById('nextGal');
-  const dotsWrap = document.getElementById('dotsGal');
-
-  let active = 0;
-
+  // forzar estilos necesarios
   slider.style.display = 'flex';
   slider.style.transition = 'transform 0.45s ease';
   slides.forEach(s => s.style.flex = '0 0 100%');
 
+  // construir dots (limpio antes)
   dotsWrap.innerHTML = '';
   slides.forEach((_, i) => {
-    const b = document.createElement('button');
-    b.className = i === 0 ? 'dot active' : 'dot';
-    b.setAttribute('aria-label', 'Ir a la instalación ' + (i + 1));
-    b.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(b);
+    const btn = document.createElement('button');
+    btn.className = i === 0 ? 'dot active' : 'dot';
+    btn.setAttribute('aria-label', 'Ir al testimonio ' + (i+1));
+    btn.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(btn);
   });
 
   function update() {
@@ -119,7 +88,52 @@ document.querySelectorAll('.img-uploader').forEach(upl => {
   if (prevBtn) prevBtn.addEventListener('click', () => goTo(active - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => goTo(active + 1));
 
+  // asegurar que al cambiar tamaño la posición siga correcta
   window.addEventListener('resize', update);
+
+  // inicializar
+  update();
+})();
+
+/* 3) Galería instalaciones (robusto) */
+(function(){
+  const slider = document.getElementById('gallery-slider');
+  const prevBtn = document.getElementById('prevGal');
+  const nextBtn = document.getElementById('nextGal');
+  const dotsWrap = document.getElementById('dotsGal');
+
+  if (!slider || !dotsWrap) return;
+
+  const slides = Array.from(slider.querySelectorAll('.gallery-slide'));
+  let active = 0;
+
+  slider.style.display = 'flex';
+  slider.style.transition = 'transform 0.45s ease';
+  slides.forEach(s => s.style.flex = '0 0 100%');
+
+  dotsWrap.innerHTML = '';
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = i === 0 ? 'dot active' : 'dot';
+    btn.setAttribute('aria-label', 'Ir a la instalación ' + (i+1));
+    btn.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(btn);
+  });
+
+  function update() {
+    slider.style.transform = `translateX(-${active * 100}%)`;
+    Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('active', idx === active));
+  }
+
+  function goTo(i) {
+    active = Math.max(0, Math.min(slides.length - 1, i));
+    update();
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(active - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(active + 1));
+  window.addEventListener('resize', update);
+
   update();
 })();
 
