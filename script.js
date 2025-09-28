@@ -1,10 +1,11 @@
 /* script.js
- - Maneja previsualización de imágenes por servicio
- - Control simple del carrusel de testimonios
- - Control del formulario (sin backend)
+ - Previsualización de imágenes (servicios)
+ - Slider testimonios
+ - Slider instalaciones
+ - Manejo básico del formulario (local)
 */
 
-/* Utilidad: previsualizar imágenes subidas por servicio */
+/* 1) Previsualización: servicios */
 document.querySelectorAll('.img-uploader').forEach(upl => {
   upl.addEventListener('change', function(ev) {
     const file = ev.target.files[0];
@@ -19,7 +20,7 @@ document.querySelectorAll('.img-uploader').forEach(upl => {
   });
 });
 
-/* Testimonios: slider simple con flechas y puntos */
+/* 2) Testimonios slider */
 (function(){
   const slider = document.getElementById('testimonials-slider');
   const slides = Array.from(slider.querySelectorAll('.testimonial-slide'));
@@ -29,7 +30,7 @@ document.querySelectorAll('.img-uploader').forEach(upl => {
   let active = 0;
 
   // crear dots
-  slides.forEach((s, i) => {
+  slides.forEach((_, i) => {
     const b = document.createElement('button');
     b.className = i === 0 ? 'dot active' : 'dot';
     if (i === 0) b.classList.add('active');
@@ -37,48 +38,70 @@ document.querySelectorAll('.img-uploader').forEach(upl => {
     dotsWrap.appendChild(b);
   });
 
-  function updateSlider() {
-    // desplazamos el contenedor
+  function update() {
     slider.style.transform = `translateX(-${active * 100}%)`;
-    // actualizar dots
-    Array.from(dotsWrap.children).forEach((d, idx) => {
-      d.classList.toggle('active', idx === active);
-    });
+    Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('active', idx === active));
   }
 
   function goTo(i) {
     active = Math.max(0, Math.min(slides.length - 1, i));
-    updateSlider();
+    update();
   }
 
   prevBtn.addEventListener('click', () => goTo(active - 1));
   nextBtn.addEventListener('click', () => goTo(active + 1));
 
-  // responsive: ajustar el ancho de cada slide para permitir translateX por %.
-  function setSlidesWidth() {
-    slides.forEach(s => s.style.minWidth = '100%');
-  }
-  window.addEventListener('resize', setSlidesWidth);
-  setSlidesWidth();
-  updateSlider();
+  // init
+  slides.forEach(s => s.style.minWidth = '100%');
+  update();
 })();
 
-/* Formulario: acción local (sin backend) */
+/* 3) Galería instalaciones (cuadradas) */
+(function(){
+  const slider = document.getElementById('gallery-slider');
+  const slides = Array.from(slider.querySelectorAll('.gallery-slide'));
+  const prevBtn = document.getElementById('prevGal');
+  const nextBtn = document.getElementById('nextGal');
+  const dotsWrap = document.getElementById('dotsGal');
+  let active = 0;
+
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = i === 0 ? 'dot active' : 'dot';
+    b.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(b);
+  });
+
+  function update() {
+    slider.style.transform = `translateX(-${active * 100}%)`;
+    Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('active', idx === active));
+  }
+
+  function goTo(i) {
+    active = Math.max(0, Math.min(slides.length - 1, i));
+    update();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(active - 1));
+  nextBtn.addEventListener('click', () => goTo(active + 1));
+
+  slides.forEach(s => s.style.minWidth = '100%');
+  update();
+})();
+
+/* 4) Formulario: validación simple y limpieza (sin backend) */
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
   const nombre = document.getElementById('nombre').value.trim();
   const telefono = document.getElementById('telefono').value.trim();
   const correo = document.getElementById('correo').value.trim();
 
-  // validación básica
   if(!nombre || !telefono || !correo){
     alert('Por favor completa los campos requeridos: Nombre, Teléfono y Correo.');
     return;
   }
 
-  // aquí puedes integrar envío real (fetch / jsmail) más adelante
-  // por ahora mostramos confirmación y limpiamos el formulario
-  alert('Gracias, ' + nombre + '. Hemos recibido tu registro. Pronto nos comunicaremos contigo.');
+  // Simulación de envío: podrías conectar jsmail / fetch aquí
+  alert('Gracias, ' + nombre + '. Hemos recibido tu registro/solicitud de cita. Nos pondremos en contacto.');
   this.reset();
 });
-
