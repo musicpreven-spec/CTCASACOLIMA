@@ -144,26 +144,7 @@ body {
   display:block;
 }
 
-/* Hint overlay al pasar el cursor (texto "Cambiar imagen") */
-.service-img-wrap::after{
-  content: "Cambiar imagen";
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: rgba(7,42,78,0.85);
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.18s ease, transform 0.18s ease;
-  pointer-events: none;
-}
-.service-img-wrap:hover::after{
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Eliminado el Hint overlay al pasar el cursor (texto "Cambiar imagen") */
 
 /* CHATBOT */
 .chatbot-section { display:flex; justify-content:flex-start; }
