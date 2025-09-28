@@ -104,6 +104,26 @@ body {
 .section { margin-top:1.75rem; padding:1rem; border-radius:12px; }
 .section-title { font-family: 'Merriweather', serif; color: #072A4E; font-size:1.25rem; margin-bottom:0.9rem; }
 
+/* SECCIÓN ¿CÓMO FUNCIONA? */
+#como-funciona{
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.como-funciona-img-wrap{
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.como-funciona-img{
+  max-width: 90%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
 /* NUESTROS SERVICIOS - imágenes en fila horizontal */
 .services-container{
   display: flex;
