@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Casa Colima — Tratamiento Integral</title>
 
-  <!-- Tipografías elegantes y profesionales -->
+  <!-- Tipografías (elegante, profesional) -->
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
@@ -13,13 +13,13 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
+      <!-- LOGO izquierda -->
       <div class="logo-wrap">
-        <!-- logo.png en la misma carpeta -->
         <img src="logo.png" alt="Casa Colima - Logo" class="site-logo" />
       </div>
 
-      <div class="hero-wrap" aria-hidden="false">
-        <!-- hero.png en la misma carpeta; se coloca como imagen de fondo con overlay -->
+      <!-- HERO derecha (imagen + texto encima) -->
+      <div class="hero-wrap" role="img" aria-label="Imagen principal Casa Colima">
         <img src="hero.png" alt="Hero Casa Colima" class="hero-img" />
         <div class="hero-text">
           <h1>Bienvenidos a Casa Colima</h1>
@@ -31,56 +31,61 @@
   </header>
 
   <main class="main-content">
-    <!-- Nuestros Servicios -->
+    <!-- NUESTROS SERVICIOS -->
     <section id="servicios" class="section servicios">
       <h2 class="section-title">Nuestros Servicios</h2>
 
       <div class="services-grid">
-        <!-- Servicio 1 -->
         <div class="service-card">
           <div class="service-head">
             <h3>Terapia Grupal</h3>
-            <input type="file" accept="image/*" class="img-uploader" data-target="srv1-img" />
+            <input type="file" accept="image/*" class="img-uploader" data-target="srv1-img" aria-label="Subir imagen Terapia Grupal"/>
           </div>
-          <img id="srv1-img" src="terapia-grupal.jpg" alt="Terapia Grupal" class="service-img" />
+          <div class="service-img-wrap">
+            <img id="srv1-img" src="terapia-grupal.jpg" alt="Terapia Grupal" class="service-img" />
+          </div>
         </div>
 
-        <!-- Servicio 2 -->
         <div class="service-card">
           <div class="service-head">
             <h3>Terapia Individual</h3>
-            <input type="file" accept="image/*" class="img-uploader" data-target="srv2-img" />
+            <input type="file" accept="image/*" class="img-uploader" data-target="srv2-img" aria-label="Subir imagen Terapia Individual"/>
           </div>
-          <img id="srv2-img" src="terapia-individual.jpg" alt="Terapia Individual" class="service-img" />
+          <div class="service-img-wrap">
+            <img id="srv2-img" src="terapia-individual.jpg" alt="Terapia Individual" class="service-img" />
+          </div>
         </div>
 
-        <!-- Servicio 3 -->
         <div class="service-card">
           <div class="service-head">
             <h3>Diagnóstico Integral</h3>
-            <input type="file" accept="image/*" class="img-uploader" data-target="srv3-img" />
+            <input type="file" accept="image/*" class="img-uploader" data-target="srv3-img" aria-label="Subir imagen Diagnóstico Integral"/>
           </div>
-          <img id="srv3-img" src="diagnostico-integral.jpg" alt="Diagnóstico Integral" class="service-img" />
+          <div class="service-img-wrap">
+            <img id="srv3-img" src="diagnostico-integral.jpg" alt="Diagnóstico Integral" class="service-img" />
+          </div>
         </div>
 
-        <!-- Servicio 4 -->
         <div class="service-card">
           <div class="service-head">
             <h3>Programa de Recaída</h3>
-            <input type="file" accept="image/*" class="img-uploader" data-target="srv4-img" />
+            <input type="file" accept="image/*" class="img-uploader" data-target="srv4-img" aria-label="Subir imagen Programa de Recaída"/>
           </div>
-          <img id="srv4-img" src="programa-recaida.jpg" alt="Programa de Recaída" class="service-img" />
+          <div class="service-img-wrap">
+            <img id="srv4-img" src="programa-recaida.jpg" alt="Programa de Recaída" class="service-img" />
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Chatbot -->
+    <!-- CHATBOT -->
     <section id="chatbot" class="section chatbot-section">
       <div class="chatbot-card" role="region" aria-label="Chatbot - Tu guía">
         <div class="chatbot-top">
-          <div class="chatbot-circle">E</div>
+          <div class="chatbot-circle" aria-hidden="true">E</div>
           <div class="chatbot-text">Tu guía en el proceso para cambiar tu vida</div>
         </div>
+
         <div class="chatbot-actions">
           <a class="chat-button" href="chatbot.html" target="_blank" rel="noopener">
             <span class="chat-icon" aria-hidden="true">💬</span> ¡Vamos a chatear!
@@ -89,13 +94,12 @@
       </div>
     </section>
 
-    <!-- Testimonios -->
+    <!-- TESTIMONIOS -->
     <section id="testimonios" class="section testimonios-section">
       <h2 class="section-title">Testimonios Reales</h2>
 
       <div class="testimonials-wrapper">
         <div class="testimonials-slider" id="testimonials-slider">
-          <!-- slide 1 -->
           <article class="testimonial-slide">
             <div class="testimonial-content">
               <p class="quote">Entré a Casa Colima a los 22 años y, gracias al tratamiento, llevo 2 años en sobriedad desde que egresé. Casa Colima transformó mi vida, ofreciéndome no solo grupos, sino también terapias que van de la mano. No hay otra clínica con su esencia y energía. La recuperación es un proceso de por vida, y Casa Colima me dio las herramientas para vivirla plenamente. ¡Gracias a Casa Colima!</p>
@@ -103,7 +107,6 @@
             </div>
           </article>
 
-          <!-- slide 2 -->
           <article class="testimonial-slide">
             <div class="testimonial-content">
               <p class="quote">La depresión me tenía atrapado, mi vida se estaba desmoronando. Llegué a Casa Colima sin saber qué esperar, y encontré el lugar donde pude reconstruirme. Con un apoyo increíble y las terapias que realmente funcionan, recuperé mi familia, mi trabajo y, lo más importante, a mí mismo. Si estás luchando contra la depresión, este es el lugar donde puedes empezar a ganar tu batalla. ¡Funciona!</p>
@@ -111,7 +114,6 @@
             </div>
           </article>
 
-          <!-- slide 3 -->
           <article class="testimonial-slide">
             <div class="testimonial-content">
               <p class="quote">Durante muchos años busqué la manera de salir adelante y fue en Casa Colima donde me ayudaron, me apoyaron y me enseñaron que para poder rehabilitarme debo estar apegada a mi tratamiento, ser constante y hacer caso de las sugerencias que los expertos me hacen. Llevo ya más de un año y medio afuera, tengo una vida sana, un buen trabajo y soy independiente.</p>
@@ -122,27 +124,55 @@
 
         <div class="testimonials-controls">
           <button id="prevTest" class="test-arrow" aria-label="Anterior">‹</button>
-          <div id="dots" class="dots"></div>
+          <div id="dots" class="dots" role="tablist"></div>
           <button id="nextTest" class="test-arrow" aria-label="Siguiente">›</button>
         </div>
       </div>
     </section>
 
-    <!-- ¿Cómo Funciona? -->
+    <!-- ¿CÓMO FUNCIONA? -->
     <section id="como-funciona" class="section como-funciona">
       <h2 class="big-question">¿Cómo Funciona?</h2>
       <p class="line-1">Tú eres único/única... tu proceso también</p>
       <p class="line-2">Nuestra misión es ofrecer un camino de sanación basado en el respeto, la profesionalidad y un profundo entendimiento de las necesidades individuales, creando un ambiente seguro y de contención.</p>
       <p class="line-3">En Casa Colima, te acompañamos para que construyas una vida plena, sana y libre, fomentando la esperanza y la transformación personal.</p>
 
-      <div class="photo-placeholder">
-        <!-- espacio para una foto (agregar imagen si deseas) -->
+      <div class="photo-placeholder" aria-hidden="true">
+        Espacio para imagen
       </div>
     </section>
 
-    <!-- Formulario de registro / contacto -->
+    <!-- NUESTRAS INSTALACIONES (galería cuadrada, sin recortes) -->
+    <section id="instalaciones" class="section instalaciones">
+      <h2 class="section-title">Nuestras Instalaciones</h2>
+
+      <div class="gallery-wrapper">
+        <div class="gallery-slider" id="gallery-slider">
+          <div class="gallery-slide">
+            <div class="square-img-wrap"><img src="instalacion1.jpeg" alt="Instalación 1" class="gallery-img" id="inst1"/></div>
+          </div>
+          <div class="gallery-slide">
+            <div class="square-img-wrap"><img src="instalacion2.jpeg" alt="Instalación 2" class="gallery-img" id="inst2"/></div>
+          </div>
+          <div class="gallery-slide">
+            <div class="square-img-wrap"><img src="instalacion3.jpeg" alt="Instalación 3" class="gallery-img" id="inst3"/></div>
+          </div>
+          <div class="gallery-slide">
+            <div class="square-img-wrap"><img src="instalacion4.jpeg" alt="Instalación 4" class="gallery-img" id="inst4"/></div>
+          </div>
+        </div>
+
+        <div class="gallery-controls">
+          <button id="prevGal" class="test-arrow" aria-label="Anterior galería">‹</button>
+          <div id="dotsGal" class="dots"></div>
+          <button id="nextGal" class="test-arrow" aria-label="Siguiente galería">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMULARIO con opción agendar cita -->
     <section id="registro" class="section registro">
-      <h2 class="section-title">Registro / Contacto</h2>
+      <h2 class="section-title">Registro / Agendar Cita</h2>
       <form id="contactForm" class="contact-form" novalidate>
         <div class="form-row">
           <label for="nombre">Nombre completo</label>
@@ -160,18 +190,23 @@
         </div>
 
         <div class="form-row">
+          <label for="fecha">Fecha sugerida para cita</label>
+          <input id="fecha" name="fecha" type="date" />
+        </div>
+
+        <div class="form-row">
           <label for="mensaje">Mensaje / Comentarios</label>
           <textarea id="mensaje" name="mensaje" rows="4"></textarea>
         </div>
 
         <div class="form-row form-actions">
-          <button type="submit" class="btn-submit">Enviar mi registro</button>
+          <button type="submit" class="btn-submit">Enviar mi registro / Agendar</button>
         </div>
       </form>
     </section>
   </main>
 
-  <!-- Footer / información en 4 recuadros -->
+  <!-- FOOTER (4 recuadros) -->
   <footer class="site-footer">
     <div class="footer-grid">
       <div class="footer-card">
