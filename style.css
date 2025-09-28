@@ -104,47 +104,54 @@ body {
 .section { margin-top:1.75rem; padding:1rem; border-radius:12px; }
 .section-title { font-family: 'Merriweather', serif; color: #072A4E; font-size:1.25rem; margin-bottom:0.9rem; }
 
-/* SERVICIOS - imágenes más grandes y limpio UX (input oculto) */
-.services-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+/* NUESTROS SERVICIOS - imágenes en fila horizontal */
+.services-container{
+  display: flex;
+  justify-content: center; /* centrado horizontal */
+  gap: 2rem;
+  flex-wrap: nowrap; /* fila horizontal */
+  overflow-x: auto; /* scroll horizontal si no caben todas */
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+}
+
 .service-card{
-  background: rgba(255,255,255,0.96);
-  padding: 0.6rem;
-  border-radius: 12px;
-  display:flex; flex-direction:column; gap:0.6rem; align-items:center;
-  min-height: 340px; box-shadow: 0 8px 20px rgba(4,20,40,0.08);
-}
-.service-head{ width:100%; display:flex; justify-content:space-between; align-items:center; gap:0.5rem; padding-bottom:0.25rem; }
-.service-head h3 { font-size:1.05rem; color:#072A4E; font-weight:700; }
-
-/* Ocultar input file visualmente pero dejar funcional */
-.img-uploader {
-  position: absolute !important;
-  width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-  border: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 250px; /* ancho fijo para cada card */
+  text-align: center;
 }
 
-/* imagen grande: usar cover para llenar sin deformar, evita pixelado aparente */
-.service-img-wrap{
-  width:100%;
-  display:flex; align-items:center; justify-content:center;
-  background: #ffffff; padding:6px; border-radius:8px; position:relative; cursor:pointer;
-  transition: transform 0.18s ease;
-}
-.service-img-wrap:hover { transform: translateY(-4px); }
-
-/* imagen visible */
 .service-img{
-  width:100%;
-  height:260px;               /* altura incrementada para verse más grande */
-  object-fit: cover;          /* rellena la caja sin distorsión */
-  object-position: center;
-  border-radius:8px;
-  image-rendering: auto;
-  display:block;
+  width: 250px;
+  height: 250px;
+  object-fit: cover; /* se ve completa la imagen */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
 }
 
-/* Eliminado el Hint overlay al pasar el cursor (texto "Cambiar imagen") */
+.service-img:hover{
+  transform: scale(1.05);
+}
+
+.service-title{
+  margin-top: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #072A4E; /* azul oscuro elegante */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Scroll visual opcional */
+.services-container::-webkit-scrollbar{
+  height:8px;
+}
+.services-container::-webkit-scrollbar-thumb{
+  background: rgba(7,42,78,0.25);
+  border-radius:4px;
+}
 
 /* CHATBOT */
 .chatbot-section { display:flex; justify-content:flex-start; }
@@ -205,14 +212,34 @@ body {
 .dots button{ width:10px; height:10px; border-radius:50%; border:none; background: rgba(7,42,78,0.18); cursor:pointer; }
 .dots button.active{ background: #072A4E; }
 
-/* INSTALACIONES: galería cuadrada */
-.gallery-wrapper { margin-top:0.6rem; }
-.gallery-slider{ display:flex; overflow:hidden; gap:1rem; min-height:320px; transition: transform 0.45s ease; }
-.gallery-slide{ min-width:100%; display:flex; align-items:center; justify-content:center; }
-.square-img-wrap{
-  width:320px; height:320px; background:#fff; border-radius:12px; display:flex; align-items:center; justify-content:center; padding:8px; box-shadow:0 10px 24px rgba(4,20,40,0.06);
+/* GALERÍA INSTALACIONES - scroll horizontal */
+.gallery-wrapper{
+  overflow-x:auto;
+  scroll-behavior: smooth;
+  padding-bottom:0.5rem;
 }
-.gallery-img{ max-width:100%; max-height:100%; object-fit: contain; display:block; border-radius:8px; }
+
+.gallery-slider{
+  display:flex;
+  gap:1rem;
+}
+
+.gallery-img{
+  width:200px;
+  height:200px;
+  object-fit: cover;
+  border-radius:8px;
+  flex:0 0 auto; /* no se estira, mantiene tamaño */
+}
+
+/* Scroll visual opcional */
+.gallery-slider::-webkit-scrollbar{
+  height:8px;
+}
+.gallery-slider::-webkit-scrollbar-thumb{
+  background: rgba(7,42,78,0.25);
+  border-radius:4px;
+}
 
 /* FORMULARIO */
 .contact-form { background: rgba(255,255,255,0.95); padding:1rem; border-radius:12px; box-shadow:0 10px 24px rgba(4,20,40,0.06); max-width:720px; }
