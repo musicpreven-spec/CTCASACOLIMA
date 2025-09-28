@@ -1,24 +1,84 @@
-// Galería y demo de contacto
-document.addEventListener('DOMContentLoaded', function(){
-  const track=document.querySelector('.slides-track');
-  const slides=Array.from(document.querySelectorAll('.slide'));
-  const prev=document.querySelector('.slide-arrow.prev');
-  const next=document.querySelector('.slide-arrow.next');
-  const dotsContainer=document.querySelector('.gallery-dots');
-  if(track && slides.length){
-    let current=0;
-    function update(){track.style.transform=`translateX(-${current*100}%)`;dotsContainer.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('active',i===current))}
-    slides.forEach(()=>{const b=document.createElement('button');dotsContainer.appendChild(b);b.addEventListener('click',()=>{current=Array.from(dotsContainer.children).indexOf(b);update()})})
-    prev.addEventListener('click',()=>{current=(current-1+slides.length)%slides.length;update()})
-    next.addEventListener('click',()=>{current=(current+1)%slides.length;update()})
-    update()
+/* script.js
+ - Maneja previsualización de imágenes por servicio
+ - Control simple del carrusel de testimonios
+ - Control del formulario (sin backend)
+*/
+
+/* Utilidad: previsualizar imágenes subidas por servicio */
+document.querySelectorAll('.img-uploader').forEach(upl => {
+  upl.addEventListener('change', function(ev) {
+    const file = ev.target.files[0];
+    const targetId = ev.target.dataset.target;
+    if (!file) return;
+    const imgEl = document.getElementById(targetId);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imgEl.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
+/* Testimonios: slider simple con flechas y puntos */
+(function(){
+  const slider = document.getElementById('testimonials-slider');
+  const slides = Array.from(slider.querySelectorAll('.testimonial-slide'));
+  const prevBtn = document.getElementById('prevTest');
+  const nextBtn = document.getElementById('nextTest');
+  const dotsWrap = document.getElementById('dots');
+  let active = 0;
+
+  // crear dots
+  slides.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.className = i === 0 ? 'dot active' : 'dot';
+    if (i === 0) b.classList.add('active');
+    b.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(b);
+  });
+
+  function updateSlider() {
+    // desplazamos el contenedor
+    slider.style.transform = `translateX(-${active * 100}%)`;
+    // actualizar dots
+    Array.from(dotsWrap.children).forEach((d, idx) => {
+      d.classList.toggle('active', idx === active);
+    });
   }
 
-  // Chat popup
-  const btn=document.getElementById('open-chat-btn');
-  btn && btn.addEventListener('click',()=>{window.open('chatbot.html','EmanuelChat','width=420,height=700,resizable=yes')})
+  function goTo(i) {
+    active = Math.max(0, Math.min(slides.length - 1, i));
+    updateSlider();
+  }
 
-  // Contact form demo
-  const form=document.getElementById('contact-form');
-  form && form.addEventListener('submit',e=>{e.preventDefault();alert('Registro enviado — demo');form.reset()})
+  prevBtn.addEventListener('click', () => goTo(active - 1));
+  nextBtn.addEventListener('click', () => goTo(active + 1));
+
+  // responsive: ajustar el ancho de cada slide para permitir translateX por %.
+  function setSlidesWidth() {
+    slides.forEach(s => s.style.minWidth = '100%');
+  }
+  window.addEventListener('resize', setSlidesWidth);
+  setSlidesWidth();
+  updateSlider();
+})();
+
+/* Formulario: acción local (sin backend) */
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const nombre = document.getElementById('nombre').value.trim();
+  const telefono = document.getElementById('telefono').value.trim();
+  const correo = document.getElementById('correo').value.trim();
+
+  // validación básica
+  if(!nombre || !telefono || !correo){
+    alert('Por favor completa los campos requeridos: Nombre, Teléfono y Correo.');
+    return;
+  }
+
+  // aquí puedes integrar envío real (fetch / jsmail) más adelante
+  // por ahora mostramos confirmación y limpiamos el formulario
+  alert('Gracias, ' + nombre + '. Hemos recibido tu registro. Pronto nos comunicaremos contigo.');
+  this.reset();
 });
+
