@@ -1,143 +1,262 @@
-/* script.js — versión robusta
- - Previsualización de imágenes (servicios)
- - Slider testimonios (robusto con resize)
- - Slider instalaciones (robusto)
- - Manejo básico del formulario (local)
+/* style.css — Correcciones urgentes:
+   - Paleta original (azul pastel -> lila pastel)
+   - Inputs file ocultos (no aparece "Subir archivo")
+   - UX: hacer clic en la imagen para cambiarla (hover hint)
+   - Testimonios y galerías estilos limpios
 */
 
-/* 1) Previsualización: servicios */
-document.querySelectorAll('.img-uploader').forEach(upl => {
-  upl.addEventListener('change', function(ev) {
-    const file = ev.target.files[0];
-    const targetId = ev.target.dataset.target;
-    if (!file) return;
-    const imgEl = document.getElementById(targetId);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      imgEl.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-});
+/* Reset y base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  min-height: 100vh;
+  /* Paleta: azul pastel -> lila pastel (sin blancos) */
+  background: linear-gradient(135deg, #9ad3e6 10%, #c8b7ea 90%);
+  color: #0b2742;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.5;
+  font-size: 16px;
+  font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
 
-/* 2) Testimonios slider (robusto) */
-(function(){
-  const sliderContainer = document.getElementById('testimonials-slider'); // contenedor con slides
-  if (!sliderContainer) return;
+/* contenedores principales */
+.header-inner, .main-content, .site-footer {
+  width: min(1180px, 94%);
+  margin: 0 auto;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
 
-  const slides = Array.from(sliderContainer.querySelectorAll('.testimonial-slide'));
-  const prevBtn = document.getElementById('prevTest');
-  const nextBtn = document.getElementById('nextTest');
-  const dotsWrap = document.getElementById('dots');
+/* HEADER */
+.site-header { padding: 1rem 0; }
+.header-inner { display:flex; align-items:center; gap:1rem; justify-content:space-between; }
 
-  // envolver slider en viewport para overflow hidden (si no existe)
-  let viewport = sliderContainer.parentElement;
-  if (!viewport.classList.contains('testimonials-viewport')) {
-    // asumo que en el HTML original el contenedor inmediato es el wrapper; si no, este paso no rompe nada
-    // (en el CSS añadimos .testimonials-viewport - asegúrate de que el index.html tenga la estructura o simplemente funciona igualmente)
-  }
+/* LOGO */
+.logo-wrap { flex: 0 0 auto; display:flex; align-items:center; }
+.site-logo {
+  max-height: 160px;
+  width: auto;
+  display:block;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(4,20,40,0.12);
+}
 
-  let active = 0;
+/* HERO */
+.hero-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.95;
+}
+.hero-wrap::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7,42,78,0.25), rgba(120,84,169,0.28));
+  mix-blend-mode: multiply;
+}
+.hero-text {
+  position: relative;
+  z-index: 2;
+  padding: 1rem 2rem;
+  text-align: right;
+  color: #ffffff;
+  max-width: 62%;
+}
+.hero-text h1{
+  margin: 0 0 0.25rem 0;
+  font-family: 'Merriweather', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-shadow: 0 4px 18px rgba(4,20,40,0.25);
+}
+.hero-text h2{
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #f8fbff;
+}
+.hero-cta{
+  font-weight: 600;
+  background: rgba(255,255,255,0.06);
+  display:inline-block;
+  padding:0.25rem 0.6rem;
+  border-radius:6px;
+  color:#fff;
+  font-size:0.9rem;
+}
 
-  // asegurar estilos de flex en slides
-  sliderContainer.style.display = 'flex';
-  sliderContainer.style.transition = 'transform 0.45s ease';
-  slides.forEach(s => {
-    s.style.flex = '0 0 100%';
-    s.style.boxSizing = 'border-box';
-  });
+/* SECCIONES */
+.section { margin-top:1.75rem; padding:1rem; border-radius:12px; }
+.section-title { font-family: 'Merriweather', serif; color: #072A4E; font-size:1.25rem; margin-bottom:0.9rem; }
 
-  // crear dots
-  dotsWrap.innerHTML = '';
-  slides.forEach((_, i) => {
-    const b = document.createElement('button');
-    b.className = 'dot' + (i === 0 ? ' active' : '');
-    b.setAttribute('aria-label', 'Ir al testimonio ' + (i + 1));
-    b.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(b);
-  });
+/* SERVICIOS - imágenes más grandes y limpio UX (input oculto) */
+.services-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.service-card{
+  background: rgba(255,255,255,0.96);
+  padding: 0.6rem;
+  border-radius: 12px;
+  display:flex; flex-direction:column; gap:0.6rem; align-items:center;
+  min-height: 340px; box-shadow: 0 8px 20px rgba(4,20,40,0.08);
+}
+.service-head{ width:100%; display:flex; justify-content:space-between; align-items:center; gap:0.5rem; padding-bottom:0.25rem; }
+.service-head h3 { font-size:1.05rem; color:#072A4E; font-weight:700; }
 
-  function update() {
-    // mover slider
-    sliderContainer.style.transform = `translateX(-${active * 100}%)`;
-    // dots
-    Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('active', idx === active));
-  }
+/* Ocultar input file visualmente pero dejar funcional */
+.img-uploader {
+  position: absolute !important;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  border: 0;
+}
 
-  function goTo(i) {
-    active = Math.max(0, Math.min(slides.length - 1, i));
-    update();
-  }
+/* imagen grande: usar cover para llenar sin deformar, evita pixelado aparente */
+.service-img-wrap{
+  width:100%;
+  display:flex; align-items:center; justify-content:center;
+  background: #ffffff; padding:6px; border-radius:8px; position:relative; cursor:pointer;
+  transition: transform 0.18s ease;
+}
+.service-img-wrap:hover { transform: translateY(-4px); }
 
-  if (prevBtn) prevBtn.addEventListener('click', () => goTo(active - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => goTo(active + 1));
+/* imagen visible */
+.service-img{
+  width:100%;
+  height:260px;               /* altura incrementada para verse más grande */
+  object-fit: cover;          /* rellena la caja sin distorsión */
+  object-position: center;
+  border-radius:8px;
+  image-rendering: auto;
+  display:block;
+}
 
-  // responsive: en resize aseguramos que la transformación sigue siendo correcta
-  window.addEventListener('resize', () => {
-    // mantenemos la misma proporción, solo reaplicamos transform
-    update();
-  });
+/* Hint overlay al pasar el cursor (texto "Cambiar imagen") */
+.service-img-wrap::after{
+  content: "Cambiar imagen";
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(7,42,78,0.85);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+.service-img-wrap:hover::after{
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  // init
-  update();
-})();
+/* CHATBOT */
+.chatbot-section { display:flex; justify-content:flex-start; }
+.chatbot-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
+  border-radius: 12px;
+  padding: 1rem;
+  border-left: 8px solid rgba(0,0,0,0.03);
+  box-shadow: 0 8px 20px rgba(4,20,40,0.06);
+  width: 100%;
+  max-width: 720px;
+}
+.chatbot-top{ display:flex; align-items:center; gap:1rem; margin-bottom:0.75rem; }
+.chatbot-circle{
+  width:56px; height:56px; border-radius:50%;
+  background: #2fbf7f; display:flex; align-items:center; justify-content:center;
+  font-weight:700; color:#fff; font-size:1.4rem; box-shadow:0 6px 16px rgba(47,191,127,0.18);
+}
+.chatbot-text{ font-weight:600; color:#072A4E; font-size:1rem; }
+.chat-button{
+  display:inline-flex; align-items:center; gap:0.6rem;
+  background: #e74c3c; color:#fff; padding:0.6rem 1rem; text-decoration:none;
+  border-radius:10px; font-weight:700; box-shadow:0 8px 20px rgba(231,76,60,0.18);
+}
 
-/* 3) Galería instalaciones (robusto) */
-(function(){
-  const slider = document.getElementById('gallery-slider');
-  if (!slider) return;
-  const slides = Array.from(slider.querySelectorAll('.gallery-slide'));
-  const prevBtn = document.getElementById('prevGal');
-  const nextBtn = document.getElementById('nextGal');
-  const dotsWrap = document.getElementById('dotsGal');
+/* TESTIMONIOS */
+.testimonials-wrapper { background: transparent; border-radius:12px; padding:0.5rem; }
+.testimonials-viewport {
+  overflow: hidden;
+  border-radius: 12px;
+}
+.testimonials-slider{
+  display:flex;
+  gap:1rem;
+  transition: transform 0.45s ease;
+  will-change: transform;
+}
+.testimonial-slide{
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  background: rgba(255,255,255,0.96);
+  border-radius:12px;
+  box-shadow:0 10px 28px rgba(4,20,40,0.06);
+}
+.testimonial-content .quote{
+  font-family: 'Merriweather', serif;
+  color: #072A4E; font-size:1rem; margin-bottom:0.75rem;
+}
+.testimonial-content .author{ font-weight:700; color:#072A4E; text-align:right; }
 
-  let active = 0;
+/* controles testimonios */
+.testimonials-controls{ display:flex; align-items:center; justify-content:center; gap:1rem; margin-top:0.65rem; }
+.test-arrow{
+  background: rgba(255,255,255,0.95); border:none; padding:0.3rem 0.6rem; border-radius:8px; font-size:1.2rem; cursor:pointer; box-shadow:0 6px 16px rgba(4,20,40,0.08);
+}
+.dots{ display:flex; gap:0.45rem; align-items:center; }
+.dots button{ width:10px; height:10px; border-radius:50%; border:none; background: rgba(7,42,78,0.18); cursor:pointer; }
+.dots button.active{ background: #072A4E; }
 
-  slider.style.display = 'flex';
-  slider.style.transition = 'transform 0.45s ease';
-  slides.forEach(s => s.style.flex = '0 0 100%');
+/* INSTALACIONES: galería cuadrada */
+.gallery-wrapper { margin-top:0.6rem; }
+.gallery-slider{ display:flex; overflow:hidden; gap:1rem; min-height:320px; transition: transform 0.45s ease; }
+.gallery-slide{ min-width:100%; display:flex; align-items:center; justify-content:center; }
+.square-img-wrap{
+  width:320px; height:320px; background:#fff; border-radius:12px; display:flex; align-items:center; justify-content:center; padding:8px; box-shadow:0 10px 24px rgba(4,20,40,0.06);
+}
+.gallery-img{ max-width:100%; max-height:100%; object-fit: contain; display:block; border-radius:8px; }
 
-  dotsWrap.innerHTML = '';
-  slides.forEach((_, i) => {
-    const b = document.createElement('button');
-    b.className = i === 0 ? 'dot active' : 'dot';
-    b.setAttribute('aria-label', 'Ir a la instalación ' + (i + 1));
-    b.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(b);
-  });
+/* FORMULARIO */
+.contact-form { background: rgba(255,255,255,0.95); padding:1rem; border-radius:12px; box-shadow:0 10px 24px rgba(4,20,40,0.06); max-width:720px; }
+.form-row { display:flex; flex-direction:column; gap:0.35rem; margin-bottom:0.8rem; }
+.form-row label { font-weight:600; color:#072A4E; font-size:0.9rem; }
+.form-row input, .form-row textarea {
+  padding:0.6rem 0.75rem; border-radius:8px; border:1px solid rgba(7,42,78,0.08); font-size:0.95rem;
+}
+.form-actions { display:flex; justify-content:flex-end; }
+.btn-submit { background: #072A4E; color:#fff; padding:0.65rem 1rem; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
 
-  function update() {
-    slider.style.transform = `translateX(-${active * 100}%)`;
-    Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('active', idx === active));
-  }
+/* FOOTER */
+.site-footer { margin-top:1.5rem; padding: 1rem 0 3rem 0; }
+.footer-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:1rem; width: min(1180px,94%); margin:0 auto; }
+.footer-card{ background: rgba(255,255,255,0.95); border-radius:12px; padding:0.9rem; display:flex; gap:0.75rem; align-items:flex-start; border:2px solid rgba(7,42,78,0.06); color:#072A4E; }
+.footer-card .icon { font-size:1.4rem; }
+.footer-text a { color: #072A4E; text-decoration: none; font-weight:600; }
+.footer-text p { margin-top:0.25rem; color: rgba(11,39,66,0.75); font-weight:500; }
 
-  function goTo(i) {
-    active = Math.max(0, Math.min(slides.length - 1, i));
-    update();
-  }
-
-  if (prevBtn) prevBtn.addEventListener('click', () => goTo(active - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => goTo(active + 1));
-
-  window.addEventListener('resize', update);
-  update();
-})();
-
-/* 4) Formulario: validación simple y limpieza (sin backend) */
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-  contactForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    const nombre = document.getElementById('nombre').value.trim();
-    const telefono = document.getElementById('telefono').value.trim();
-    const correo = document.getElementById('correo').value.trim();
-
-    if(!nombre || !telefono || !correo){
-      alert('Por favor completa los campos requeridos: Nombre, Teléfono y Correo.');
-      return;
-    }
-
-    alert('Gracias, ' + nombre + '. Hemos recibido tu registro/solicitud de cita. Nos pondremos en contacto.');
-    this.reset();
-  });
+/* responsive */
+@media (max-width:920px){
+  .header-inner { flex-direction: column; align-items:stretch; gap:0.8rem; }
+  .hero-text { text-align:left; max-width:100%; padding:1rem; }
+  .site-logo { max-height:110px; }
+  .hero-wrap { height:260px; }
+  .square-img-wrap { width:90%; height:auto; aspect-ratio: 1 / 1; }
+  .service-img{ height:200px; }
 }
