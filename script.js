@@ -1,7 +1,7 @@
-/* script.js
+/* script.js — versión robusta
  - Previsualización de imágenes (servicios)
- - Slider testimonios
- - Slider instalaciones
+ - Slider testimonios (robusto con resize)
+ - Slider instalaciones (robusto)
  - Manejo básico del formulario (local)
 */
 
@@ -20,26 +20,47 @@ document.querySelectorAll('.img-uploader').forEach(upl => {
   });
 });
 
-/* 2) Testimonios slider */
+/* 2) Testimonios slider (robusto) */
 (function(){
-  const slider = document.getElementById('testimonials-slider');
-  const slides = Array.from(slider.querySelectorAll('.testimonial-slide'));
+  const sliderContainer = document.getElementById('testimonials-slider'); // contenedor con slides
+  if (!sliderContainer) return;
+
+  const slides = Array.from(sliderContainer.querySelectorAll('.testimonial-slide'));
   const prevBtn = document.getElementById('prevTest');
   const nextBtn = document.getElementById('nextTest');
   const dotsWrap = document.getElementById('dots');
+
+  // envolver slider en viewport para overflow hidden (si no existe)
+  let viewport = sliderContainer.parentElement;
+  if (!viewport.classList.contains('testimonials-viewport')) {
+    // asumo que en el HTML original el contenedor inmediato es el wrapper; si no, este paso no rompe nada
+    // (en el CSS añadimos .testimonials-viewport - asegúrate de que el index.html tenga la estructura o simplemente funciona igualmente)
+  }
+
   let active = 0;
 
+  // asegurar estilos de flex en slides
+  sliderContainer.style.display = 'flex';
+  sliderContainer.style.transition = 'transform 0.45s ease';
+  slides.forEach(s => {
+    s.style.flex = '0 0 100%';
+    s.style.boxSizing = 'border-box';
+  });
+
   // crear dots
+  dotsWrap.innerHTML = '';
   slides.forEach((_, i) => {
     const b = document.createElement('button');
-    b.className = i === 0 ? 'dot active' : 'dot';
-    if (i === 0) b.classList.add('active');
+    b.className = 'dot' + (i === 0 ? ' active' : '');
+    b.setAttribute('aria-label', 'Ir al testimonio ' + (i + 1));
     b.addEventListener('click', () => goTo(i));
     dotsWrap.appendChild(b);
   });
 
   function update() {
-    slider.style.transform = `translateX(-${active * 100}%)`;
+    // mover slider
+    sliderContainer.style.transform = `translateX(-${active * 100}%)`;
+    // dots
     Array.from(dotsWrap.children).forEach((d, idx) => d.classList.toggle('active', idx === active));
   }
 
@@ -48,26 +69,39 @@ document.querySelectorAll('.img-uploader').forEach(upl => {
     update();
   }
 
-  prevBtn.addEventListener('click', () => goTo(active - 1));
-  nextBtn.addEventListener('click', () => goTo(active + 1));
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(active - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(active + 1));
+
+  // responsive: en resize aseguramos que la transformación sigue siendo correcta
+  window.addEventListener('resize', () => {
+    // mantenemos la misma proporción, solo reaplicamos transform
+    update();
+  });
 
   // init
-  slides.forEach(s => s.style.minWidth = '100%');
   update();
 })();
 
-/* 3) Galería instalaciones (cuadradas) */
+/* 3) Galería instalaciones (robusto) */
 (function(){
   const slider = document.getElementById('gallery-slider');
+  if (!slider) return;
   const slides = Array.from(slider.querySelectorAll('.gallery-slide'));
   const prevBtn = document.getElementById('prevGal');
   const nextBtn = document.getElementById('nextGal');
   const dotsWrap = document.getElementById('dotsGal');
+
   let active = 0;
 
+  slider.style.display = 'flex';
+  slider.style.transition = 'transform 0.45s ease';
+  slides.forEach(s => s.style.flex = '0 0 100%');
+
+  dotsWrap.innerHTML = '';
   slides.forEach((_, i) => {
     const b = document.createElement('button');
     b.className = i === 0 ? 'dot active' : 'dot';
+    b.setAttribute('aria-label', 'Ir a la instalación ' + (i + 1));
     b.addEventListener('click', () => goTo(i));
     dotsWrap.appendChild(b);
   });
@@ -82,26 +116,28 @@ document.querySelectorAll('.img-uploader').forEach(upl => {
     update();
   }
 
-  prevBtn.addEventListener('click', () => goTo(active - 1));
-  nextBtn.addEventListener('click', () => goTo(active + 1));
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(active - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(active + 1));
 
-  slides.forEach(s => s.style.minWidth = '100%');
+  window.addEventListener('resize', update);
   update();
 })();
 
 /* 4) Formulario: validación simple y limpieza (sin backend) */
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const nombre = document.getElementById('nombre').value.trim();
-  const telefono = document.getElementById('telefono').value.trim();
-  const correo = document.getElementById('correo').value.trim();
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const correo = document.getElementById('correo').value.trim();
 
-  if(!nombre || !telefono || !correo){
-    alert('Por favor completa los campos requeridos: Nombre, Teléfono y Correo.');
-    return;
-  }
+    if(!nombre || !telefono || !correo){
+      alert('Por favor completa los campos requeridos: Nombre, Teléfono y Correo.');
+      return;
+    }
 
-  // Simulación de envío: podrías conectar jsmail / fetch aquí
-  alert('Gracias, ' + nombre + '. Hemos recibido tu registro/solicitud de cita. Nos pondremos en contacto.');
-  this.reset();
-});
+    alert('Gracias, ' + nombre + '. Hemos recibido tu registro/solicitud de cita. Nos pondremos en contacto.');
+    this.reset();
+  });
+}
