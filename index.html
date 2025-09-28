@@ -3,133 +3,215 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Casa Colima — Comunidad Terapéutica</title>
+  <title>Casa Colima — Tratamiento Integral</title>
 
-  <!-- ENLACE AL CSS -->
+  <!-- Tipografías elegantes y profesionales -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- HEADER -->
   <header class="site-header">
-    <div class="header-left">
-      <img src="logo.png" alt="Logo Casa Colima" class="logo-large" />
-    </div>
-    <div class="header-right">
-     <div class="hero-bg"></div>
-      <div class="hero-content">
-       <h1>Bienvenidos a Casa Colima</h1>
-       <p class="hero-sub">Ofrecemos Planes Integrales de Tratamiento de manera personalizada para lograr resultados reales en tu vida</p>
-       <p class="hero-cta">Atención inmediata</p>
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <!-- logo.png en la misma carpeta -->
+        <img src="logo.png" alt="Casa Colima - Logo" class="site-logo" />
       </div>
-     </div>
+
+      <div class="hero-wrap" aria-hidden="false">
+        <!-- hero.png en la misma carpeta; se coloca como imagen de fondo con overlay -->
+        <img src="hero.png" alt="Hero Casa Colima" class="hero-img" />
+        <div class="hero-text">
+          <h1>Bienvenidos a Casa Colima</h1>
+          <h2>Ofrecemos Planes Integrales de Tratamiento de manera personalizada para lograr resultados reales en tu vida</h2>
+          <p class="hero-cta">Atención inmediata</p>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- SERVICIOS -->
-  <section class="services">
-    <h2>Nuestros Servicios</h2>
-    <div class="services-grid">
-      <div class="service-item">
-        <img src="terapia-grupal.jpg" alt="Terapia grupal">
-        <h3>Terapia grupal</h3>
-      </div>
-      <div class="service-item">
-        <img src="terapia-individual.jpg" alt="Terapia individual">
-        <h3>Terapia individual</h3>
-      </div>
-      <div class="service-item">
-        <img src="diagnostico-integral.jpg" alt="Diagnóstico integral">
-        <h3>Diagnóstico Integral</h3>
-      </div>
-      <div class="service-item">
-        <img src="programa-recaida.jpg" alt="Programa de Recaída">
-        <h3>Programa de Recaída</h3>
-      </div>
-    </div>
-  </section>
+  <main class="main-content">
+    <!-- Nuestros Servicios -->
+    <section id="servicios" class="section servicios">
+      <h2 class="section-title">Nuestros Servicios</h2>
 
-  <!-- CHATBOT -->
-<section class="chatbot">
-  <div class="chatbox">
-    <div class="chat-header">
-      <div class="chat-icon">E</div>
-      <span>Tu guía en el proceso para cambiar tu vida</span>
-    </div>
-    <div class="chat-body">
-      <!-- Aquí irá el contenido del chatbot dinámico -->
-      <p>Hola, ¿en qué puedo ayudarte?</p>
-    </div>
-  </div>
-</section>
-  
-  <!-- INSTALACIONES / GALERÍA -->
-  <section class="gallery">
-    <h2>Nuestras Instalaciones</h2>
-    <div class="slides-window">
-      <div class="slides-track">
-        <div class="slide"><img src="instalacion1.jpeg" alt="Instalación 1" class="square-img"></div>
-        <div class="slide"><img src="instalacion2.jpeg" alt="Instalación 2" class="square-img"></div>
-        <div class="slide"><img src="instalacion3.jpeg" alt="Instalación 3" class="square-img"></div>
-        <div class="slide"><img src="instalacion4.jpeg" alt="Instalación 4" class="square-img"></div>
+      <div class="services-grid">
+        <!-- Servicio 1 -->
+        <div class="service-card">
+          <div class="service-head">
+            <h3>Terapia Grupal</h3>
+            <input type="file" accept="image/*" class="img-uploader" data-target="srv1-img" />
+          </div>
+          <img id="srv1-img" src="terapia-grupal.jpg" alt="Terapia Grupal" class="service-img" />
+        </div>
+
+        <!-- Servicio 2 -->
+        <div class="service-card">
+          <div class="service-head">
+            <h3>Terapia Individual</h3>
+            <input type="file" accept="image/*" class="img-uploader" data-target="srv2-img" />
+          </div>
+          <img id="srv2-img" src="terapia-individual.jpg" alt="Terapia Individual" class="service-img" />
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="service-card">
+          <div class="service-head">
+            <h3>Diagnóstico Integral</h3>
+            <input type="file" accept="image/*" class="img-uploader" data-target="srv3-img" />
+          </div>
+          <img id="srv3-img" src="diagnostico-integral.jpg" alt="Diagnóstico Integral" class="service-img" />
+        </div>
+
+        <!-- Servicio 4 -->
+        <div class="service-card">
+          <div class="service-head">
+            <h3>Programa de Recaída</h3>
+            <input type="file" accept="image/*" class="img-uploader" data-target="srv4-img" />
+          </div>
+          <img id="srv4-img" src="programa-recaida.jpg" alt="Programa de Recaída" class="service-img" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Chatbot -->
+    <section id="chatbot" class="section chatbot-section">
+      <div class="chatbot-card" role="region" aria-label="Chatbot - Tu guía">
+        <div class="chatbot-top">
+          <div class="chatbot-circle">E</div>
+          <div class="chatbot-text">Tu guía en el proceso para cambiar tu vida</div>
+        </div>
+        <div class="chatbot-actions">
+          <a class="chat-button" href="chatbot.html" target="_blank" rel="noopener">
+            <span class="chat-icon" aria-hidden="true">💬</span> ¡Vamos a chatear!
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios" class="section testimonios-section">
+      <h2 class="section-title">Testimonios Reales</h2>
+
+      <div class="testimonials-wrapper">
+        <div class="testimonials-slider" id="testimonials-slider">
+          <!-- slide 1 -->
+          <article class="testimonial-slide">
+            <div class="testimonial-content">
+              <p class="quote">Entré a Casa Colima a los 22 años y, gracias al tratamiento, llevo 2 años en sobriedad desde que egresé. Casa Colima transformó mi vida, ofreciéndome no solo grupos, sino también terapias que van de la mano. No hay otra clínica con su esencia y energía. La recuperación es un proceso de por vida, y Casa Colima me dio las herramientas para vivirla plenamente. ¡Gracias a Casa Colima!</p>
+              <p class="author">— Vanessa García</p>
+            </div>
+          </article>
+
+          <!-- slide 2 -->
+          <article class="testimonial-slide">
+            <div class="testimonial-content">
+              <p class="quote">La depresión me tenía atrapado, mi vida se estaba desmoronando. Llegué a Casa Colima sin saber qué esperar, y encontré el lugar donde pude reconstruirme. Con un apoyo increíble y las terapias que realmente funcionan, recuperé mi familia, mi trabajo y, lo más importante, a mí mismo. Si estás luchando contra la depresión, este es el lugar donde puedes empezar a ganar tu batalla. ¡Funciona!</p>
+              <p class="author">— Eduardo</p>
+            </div>
+          </article>
+
+          <!-- slide 3 -->
+          <article class="testimonial-slide">
+            <div class="testimonial-content">
+              <p class="quote">Durante muchos años busqué la manera de salir adelante y fue en Casa Colima donde me ayudaron, me apoyaron y me enseñaron que para poder rehabilitarme debo estar apegada a mi tratamiento, ser constante y hacer caso de las sugerencias que los expertos me hacen. Llevo ya más de un año y medio afuera, tengo una vida sana, un buen trabajo y soy independiente.</p>
+              <p class="author">— Lorena</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="testimonials-controls">
+          <button id="prevTest" class="test-arrow" aria-label="Anterior">‹</button>
+          <div id="dots" class="dots"></div>
+          <button id="nextTest" class="test-arrow" aria-label="Siguiente">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ¿Cómo Funciona? -->
+    <section id="como-funciona" class="section como-funciona">
+      <h2 class="big-question">¿Cómo Funciona?</h2>
+      <p class="line-1">Tú eres único/única... tu proceso también</p>
+      <p class="line-2">Nuestra misión es ofrecer un camino de sanación basado en el respeto, la profesionalidad y un profundo entendimiento de las necesidades individuales, creando un ambiente seguro y de contención.</p>
+      <p class="line-3">En Casa Colima, te acompañamos para que construyas una vida plena, sana y libre, fomentando la esperanza y la transformación personal.</p>
+
+      <div class="photo-placeholder">
+        <!-- espacio para una foto (agregar imagen si deseas) -->
+      </div>
+    </section>
+
+    <!-- Formulario de registro / contacto -->
+    <section id="registro" class="section registro">
+      <h2 class="section-title">Registro / Contacto</h2>
+      <form id="contactForm" class="contact-form" novalidate>
+        <div class="form-row">
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" name="nombre" type="text" required />
+        </div>
+
+        <div class="form-row">
+          <label for="telefono">Teléfono / WhatsApp</label>
+          <input id="telefono" name="telefono" type="tel" required />
+        </div>
+
+        <div class="form-row">
+          <label for="correo">Correo</label>
+          <input id="correo" name="correo" type="email" required />
+        </div>
+
+        <div class="form-row">
+          <label for="mensaje">Mensaje / Comentarios</label>
+          <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+        </div>
+
+        <div class="form-row form-actions">
+          <button type="submit" class="btn-submit">Enviar mi registro</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer / información en 4 recuadros -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-card">
+        <div class="icon">📍</div>
+        <div class="footer-text">
+          <strong>Ubicación</strong>
+          <p><a href="https://www.google.com/maps/search/?api=1&query=Callejón+Colima+No.11+Col.+Villa+Coyoacán+04000+Coyoacán+CDMX" target="_blank" rel="noopener">Callejón Colima No.11 Col. Villa Coyoacán C.P. 04000 Alcaldía Coyoacán CDMX</a></p>
+        </div>
+      </div>
+
+      <div class="footer-card">
+        <div class="icon">📱</div>
+        <div class="footer-text">
+          <strong>Contacto</strong>
+          <p><a href="tel:+525548492174">55 4849 2174</a></p>
+        </div>
+      </div>
+
+      <div class="footer-card">
+        <div class="icon">✉️</div>
+        <div class="footer-text">
+          <strong>Correo</strong>
+          <p><a href="mailto:ctcasacolimagmail.com">ctcasacolimagmail.com</a></p>
+        </div>
+      </div>
+
+      <div class="footer-card">
+        <div class="icon">🤝</div>
+        <div class="footer-text">
+          <strong>Únete a nuestra comunidad</strong>
+          <p class="socials">
+            <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a> •
+            <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a> •
+            <a href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">TikTok</a>
+          </p>
+        </div>
       </div>
     </div>
-    <div class="gallery-dots"></div>
-    <button class="slide-arrow prev">❮</button>
-    <button class="slide-arrow next">❯</button>
-  </section>
-
-  <!-- FORMULARIO DE CONTACTO -->
-  <section class="contact">
-    <h2>Registro / Contacto</h2>
-    <form id="contact-form">
-      <input type="text" id="name" placeholder="Nombre completo" required />
-      <input type="tel" id="phone" placeholder="Teléfono" required />
-      <input type="email" id="email" placeholder="Correo (opcional)" />
-      <select id="service" required>
-        <option value="">¿Qué servicio te interesa?</option>
-        <option value="terapia_grupal">Terapia grupal</option>
-        <option value="terapia_individual">Terapia individual</option>
-        <option value="diagnostico_integral">Diagnóstico Integral</option>
-        <option value="programa_recaida">Programa de Recaída</option>
-      </select>
-      <textarea id="message" rows="3" placeholder="Cuéntanos brevemente... (opcional)"></textarea>
-      <button type="submit" class="btn-primary">Enviar registro</button>
-    </form>
-  </section>
-
-  <!-- INFO / CONTACTO -->
-  <section class="info-grid">
-    <div class="info-card">
-      <div class="icon">📍</div>
-      <h4>Ubicación</h4>
-      <p>Callejón Colima No.11 Col. Villa Coyoacán C.P. 04000 CDMX</p>
-      <a href="https://www.google.com/maps/search/?api=1&query=Callejón+Colima+11+Villa+Coyoacán+CDMX" target="_blank">Ver en Google Maps</a>
-    </div>
-    <div class="info-card">
-      <div class="icon">📞</div>
-      <h4>Contacto</h4>
-      <p>55 4849 2174</p>
-      <a href="tel:+525548492174">Llamar / WhatsApp</a>
-    </div>
-    <div class="info-card">
-      <div class="icon">✉️</div>
-      <h4>Correo</h4>
-      <p>ctcasacolima@gmail.com</p>
-      <a href="mailto:ctcasacolima@gmail.com">Enviar correo</a>
-    </div>
-    <div class="info-card">
-      <div class="icon">👍</div>
-      <h4>Únete</h4>
-      <p>Síguenos en redes</p>
-      <p><a href="#">Facebook</a> • <a href="#">Instagram</a> • <a href="#">TikTok</a></p>
-    </div>
-  </section>
-
-  <footer>
-    © Casa Colima — Todos los derechos reservados
   </footer>
 
-  <!-- ENLACE AL JS -->
   <script src="script.js"></script>
 </body>
 </html>
