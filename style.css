@@ -1,47 +1,341 @@
-body{margin:0;font-family:Arial,sans-serif;background:#f9fbff;color:#003046}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px;background:linear-gradient(90deg,#0057b8,#2b8fd6);color:white}
-.logo-large{height:100px}
-.btn-chat{background:transparent;border:2px solid rgba(255,255,255,0.3);color:white;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+/* ===========================
+   CASA COLIMA — style.css
+   (sin :root, todo en la misma carpeta)
+   =========================== */
 
-/* HERO */
-.hero{position:relative;height:400px;display:flex;align-items:center;justify-content:center;text-align:center;color:white}
-.hero-bg{position:absolute;inset:0;background:url('hero.jpg') center/cover no-repeat;filter:brightness(0.65)}
-.hero h1{font-size:44px;margin:0}
-.hero-sub{font-size:20px;margin-top:12px}
-.hero-cta{margin-top:14px;background:rgba(255,255,255,0.15);padding:6px 12px;border-radius:8px;font-weight:700}
+/* Reset básico */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
 
-/* SERVICIOS */
-.services{padding:40px 20px;text-align:center}
-.services h2{color:#0057b8;margin-bottom:20px;font-size:28px}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-.service-item{border:1px solid #e8f6ff;border-radius:8px;padding:10px;background:white;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
-.service-item img{width:100%;height:140px;object-fit:cover;border-radius:6px}
-.service-item h3{color:#2b8fd6;margin-top:8px}
+/* Fuente seria/formal — sistema, con buena legibilidad */
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-/* GALERÍA */
-.gallery{padding:30px 20px;text-align:center}
-.slides-window{overflow:hidden;position:relative;width:100%;height:300px;margin-bottom:12px}
-.slides-track{display:flex;transition:transform .4s ease}
-.slide{min-width:100%;flex-shrink:0}
-.slide img{width:100%;height:300px;object-fit:cover;border-radius:8px}
-.slide-arrow{padding:6px 10px;margin:0 5px;border:none;background:#2b8fd6;color:white;font-size:20px;border-radius:6px;cursor:pointer}
-.gallery-dots{display:flex;justify-content:center;gap:6px}
-.gallery-dots button{width:10px;height:10px;border-radius:50%;border:none;background:#e0e6ea}
-.gallery-dots button.active{background:#0057b8}
+  /* Fondo general difuminado (turquesa → lila) - NADA de blanco */
+  background: linear-gradient(135deg, #00b8d4 0%, #6f4bb5 100%);
+  color: #e6f7ff; /* texto general muy claro pero no puro blanco */
+  line-height: 1.45;
+}
 
-/* CONTACTO */
-.contact{padding:30px 20px;text-align:center}
-.contact h2{color:#0057b8;margin-bottom:16px}
-.contact input,.contact select,.contact textarea{width:100%;padding:10px;margin-bottom:12px;border-radius:6px;border:1px solid #cce6ff}
-.btn-primary{background:#0057b8;color:white;padding:10px 16px;border:none;border-radius:6px;cursor:pointer}
+/* -----------------------
+   HEADER: logo grande + hero a la derecha
+   ----------------------- */
+.site-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 22px;
+  /* header sobre el fondo difuminado (transparente para preservar el gradiente) */
+  background: transparent;
+}
 
-/* INFO GRID */
-.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding:20px}
-.info-card{border:2px solid #2b8fd6;border-radius:6px;padding:10px;text-align:left;color:#0057b8}
-.info-card a{color:#0057b8;text-decoration:none;font-weight:600}
+/* Logo grande, a la izquierda */
+.logo-large {
+  height: 200px;        /* mucho más grande */
+  width: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(2,16,40,0.18);
+  flex-shrink: 0;
+}
 
-/* FOOTER */
-footer{text-align:center;padding:14px;background:#eaf6ff;color:#2b8fd6;margin-top:20px}
+/* Contenedor derecho (hero dentro del header) */
+.header-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 
-/* Responsive */
-@media(max-width:768px){.services-grid,.info-grid{grid-template-columns:1fr}}
+/* -----------------------
+   HERO (imagen de fondo + texto encima)
+   ----------------------- */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Fondo del hero: imagen + overlay difuminado (no blanco) */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(15,20,40,0.28), rgba(111,75,181,0.22)),
+    url('hero.png') center/cover no-repeat;
+  filter: saturate(1.02);
+  z-index: 0;
+}
+
+/* Contenido del hero (texto encima) */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 32px 44px;
+  max-width: 980px;
+  color: #e7f9ff; /* texto muy legible sobre el overlay */
+  text-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+/* Títulos del hero */
+.hero-title {
+  margin: 0 0 12px 0;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.4px;
+  color: #eaf9ff; /* suave, contrastante */
+}
+
+.hero-sub {
+  margin: 0 0 14px 0;
+  font-size: 18px;
+  color: #dff6ff;
+  opacity: 0.98;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(2,14,30,0.12); /* botón con ligero contraste, sin blanco */
+  color: #eaf9ff;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.20);
+}
+
+/* -----------------------
+   SECCIONES GENERALES (sin áreas en blanco)
+   ----------------------- */
+section {
+  padding: 42px 22px;
+  /* dejar la sección transparente para que el fondo base siga mostrándose,
+     pero aplicamos un sutil overlay de color para separar visualmente */
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(111,75,181,0.02));
+  margin: 0; /* evitar 'franjas' blancas por margenes */
+}
+
+/* Encabezados de secciones */
+section h2 {
+  margin: 0 0 18px 0;
+  font-size: 28px;
+  text-align: center;
+  color: #eaf6ff;
+  font-weight: 700;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* -----------------------
+   SERVICIOS — legibles sobre el fondo
+   ----------------------- */
+.services {
+  padding-top: 34px;
+  padding-bottom: 34px;
+  /* sutil banda de color sobre el gradiente para mayor legibilidad */
+  background: linear-gradient(180deg, rgba(0,184,212,0.04), rgba(111,75,181,0.03));
+  border-radius: 12px;
+  margin: 18px;
+  box-shadow: 0 12px 36px rgba(2,8,20,0.08);
+}
+
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  /* caja semitransparente oscura (no blanca) para contraste */
+  background: rgba(2,10,20,0.18);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 10px 28px rgba(2,8,20,0.08);
+}
+
+.service img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+/* Nombre del servicio */
+.service p {
+  margin: 0;
+  color: #dff6ff;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* -----------------------
+   CHATBOX (embebido en la landing) — marco verde, círculo E
+   ----------------------- */
+.chatbot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 26px;
+}
+
+/* caja principal del chat */
+.chatbox {
+  width: 380px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 3px solid #2e8b57; /* marco verde */
+  background: linear-gradient(180deg, rgba(46,139,87,0.06), rgba(20,60,40,0.02));
+  box-shadow: 0 14px 48px rgba(0,0,0,0.16);
+}
+
+/* header dentro del chat: verde con círculo E */
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #2e8b57; /* verde sólido */
+}
+
+/* círculo con E (relleno verde, letra blanca) */
+.chat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #2e8b57;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 20px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+}
+
+/* títulos del chat */
+.chat-titles {
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+}
+.chat-title {
+  font-weight: 800;
+  font-size: 16px;
+}
+.chat-subtitle {
+  font-weight: 500;
+  font-size: 12px;
+  color: rgba(255,255,255,0.95);
+}
+
+/* cuerpo del chat */
+.chat-body {
+  padding: 14px;
+  background: rgba(255,255,255,0.02); /* apenas perceptible, no blanco puro */
+  color: #06232a;
+  min-height: 120px;
+}
+
+/* controles de entrada (solo estilos; la acción la maneja script.js) */
+.chat-controls {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid rgba(255,255,255,0.02);
+}
+#chat-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.03);
+  color: #002a32;
+}
+.btn-primary {
+  background: #2e8b57;
+  color: #f1fff6;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* -----------------------
+   INSTALACIONES — imágenes cuadradas sin verse cortadas
+   ----------------------- */
+.instalaciones {
+  padding: 36px 18px;
+  margin: 10px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(111,75,181,0.03), rgba(0,184,212,0.03));
+  box-shadow: 0 12px 36px rgba(2,8,20,0.06);
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 14px;
+}
+
+/* preferimos aspect-ratio 1/1 (navegadores modernos) para que queden cuadradas */
+.square-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;     /* muestra la foto cubriendo el cuadro */
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+}
+
+/* Fallback si browser no soporta aspect-ratio: altura fija */
+@supports not (aspect-ratio: 1/1) {
+  .square-img { height: 300px; }
+}
+
+/* -----------------------
+   INFO GRID (contacto + redes) — sin blancos
+   ----------------------- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 14px;
+  padding: 18px;
+  margin: 10px;
+}
+.info-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  padding: 14px;
+  color: #eaf6ff;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 22px rgba(2,8,20,0.06);
+}
+.info-card a { color: #dff6ff; text-decoration: none; font-weight: 600; }
+
+/* -----------------------
+   FOOTER
+   ----------------------- */
+.site-footer {
+  padding: 18px;
+  text-align: center;
+  color: #eaf6ff;
+  background: linear-gradient(135deg, rgba(111,75,181,0.05), rgba(0,184,212,0.05));
+  margin-top: 8px;
+}
+
+/* -----------------------
+   RESPONSIVE
+   ----------------------- */
+@media (max-width: 960px) {
